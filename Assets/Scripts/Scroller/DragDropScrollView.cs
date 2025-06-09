@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FancyScrollView;
 using UnityEngine;
 
-class ScrollView : FancyScrollView<ItemData>
+class DragDropScrollView : FancyScrollView<ItemData>
 {
     [SerializeField] private Scroller _scroller;
     [SerializeField] private GameObject _cellPrefab;
@@ -15,8 +15,19 @@ class ScrollView : FancyScrollView<ItemData>
         _scroller.OnValueChanged(UpdatePosition);
     }
 
+    private void StopScrolling()
+    {
+        _scroller.enabled = false;
+    }
+
     public void UpdateData(IList<ItemData> items)
     {
+        for (int i = 0; i < items.Count; i++)
+        {
+            ItemData item = items[i];
+            item.AddAction(StopScrolling);
+        }
+
         UpdateContents(items);
         _scroller.SetTotalCount(items.Count);
     }
