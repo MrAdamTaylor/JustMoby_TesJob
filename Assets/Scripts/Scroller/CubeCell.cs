@@ -1,12 +1,13 @@
 using FancyScrollView;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CubeCell : FancyCell<ItemData>
 {
-    
-    [SerializeField] Animator _animator;
-    [SerializeField] TextMeshProUGUI _message;
+    [SerializeField] private Image _image;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private TextMeshProUGUI _message;
     
     static class AnimatorHash
     {
@@ -16,6 +17,7 @@ public class CubeCell : FancyCell<ItemData>
     public override void UpdateContent(ItemData itemData)
     {
         _message.text = itemData.Message;
+        _image.sprite = itemData.CubeData.CubeSprite;
     }
 
     public override void UpdatePosition(float position)
@@ -26,7 +28,7 @@ public class CubeCell : FancyCell<ItemData>
         {
             _animator.Play(AnimatorHash.Scroll, -1, position);
         }
-
+        
         _animator.speed = 0;
     }
     
