@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Colors
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Standalone
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Server
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 12
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    - serializedVersion: 3
+      m_BuildTarget: iPhone
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 50
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 0066a07bed7c3324eb068bb5d9a54c50, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 5db44bb1051a02242ae3470786794615: 21300000
+    - 45957902b630acd4581d7893ca0c5831: 21300000
+    - bf03a5122478de44eb2b7e19cf839256: 21300000
+    - 7b645c73b4f31db4f92be1033cd51c1b: 21300000
+    - cb2c37d3f3bfbbc47a4b261f53583225: 21300000
+    - 40e698142fc17ed42b68437dacaa4ad6: 21300000
+    - e75f8cd51fa3723448fdcb5aa3b5cbab: 21300000
+    - bf9847e5d13bd9f44b6e1062e6f208ce: 21300000
+    - 5596e6b7002ad2b4fbda6ae16c3ed3f4: 21300000
+    - 6713dcb8dfbf80f4d92f59d47c01b9e0: 21300000
+    - 7315d39a3f2c63a4e8f664a9f80c0e40: 21300000
+    - 18ae21da85142014489c733d912b81bc: 21300000
+    - 7615c8bcc0ced84439b4b9a0b1e59404: 21300000
+    - 3798363d6c403cf47806762a97156ce5: 21300000
+    - 094ccb4ed6c2a2746a2d8a9a50cd3fbb: 21300000
+    - 28334c4e92e10434a8f214cc446e0c07: 21300000
+    - 3dbf16bed4144404c9c3e00984a81385: 21300000
+    - f9a0de6f3274c2f4b98ba26b0dc4f4d0: 21300000
+    - b1b8507f22bfa7547a00f3ff28679989: 21300000
+    - 78d9afaf0dbd1ed4d88cac23f69f0e6a: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5db44bb1051a02242ae3470786794615, type: 3}
+  - {fileID: 21300000, guid: 45957902b630acd4581d7893ca0c5831, type: 3}
+  - {fileID: 21300000, guid: bf03a5122478de44eb2b7e19cf839256, type: 3}
+  - {fileID: 21300000, guid: 7b645c73b4f31db4f92be1033cd51c1b, type: 3}
+  - {fileID: 21300000, guid: cb2c37d3f3bfbbc47a4b261f53583225, type: 3}
+  - {fileID: 21300000, guid: 40e698142fc17ed42b68437dacaa4ad6, type: 3}
+  - {fileID: 21300000, guid: e75f8cd51fa3723448fdcb5aa3b5cbab, type: 3}
+  - {fileID: 21300000, guid: bf9847e5d13bd9f44b6e1062e6f208ce, type: 3}
+  - {fileID: 21300000, guid: 5596e6b7002ad2b4fbda6ae16c3ed3f4, type: 3}
+  - {fileID: 21300000, guid: 6713dcb8dfbf80f4d92f59d47c01b9e0, type: 3}
+  - {fileID: 21300000, guid: 7315d39a3f2c63a4e8f664a9f80c0e40, type: 3}
+  - {fileID: 21300000, guid: 18ae21da85142014489c733d912b81bc, type: 3}
+  - {fileID: 21300000, guid: 7615c8bcc0ced84439b4b9a0b1e59404, type: 3}
+  - {fileID: 21300000, guid: 3798363d6c403cf47806762a97156ce5, type: 3}
+  - {fileID: 21300000, guid: 094ccb4ed6c2a2746a2d8a9a50cd3fbb, type: 3}
+  - {fileID: 21300000, guid: 28334c4e92e10434a8f214cc446e0c07, type: 3}
+  - {fileID: 21300000, guid: 3dbf16bed4144404c9c3e00984a81385, type: 3}
+  - {fileID: 21300000, guid: f9a0de6f3274c2f4b98ba26b0dc4f4d0, type: 3}
+  - {fileID: 21300000, guid: b1b8507f22bfa7547a00f3ff28679989, type: 3}
+  - {fileID: 21300000, guid: 78d9afaf0dbd1ed4d88cac23f69f0e6a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Cyan
+  - Brown
+  - Rose
+  - Orange
+  - Gray
+  - Purple
+  - Beige
+  - Yellow
+  - Black
+  - Indigo
+  - DarkPurple
+  - BrightGreen
+  - BrightRose
+  - Blue
+  - BrightBlue
+  - Red
+  - BrightBrown
+  - Emerald
+  - DarkRed
+  - Green
+  m_RenderDataMap: {}
+  m_Tag: Colors
+  m_IsVariant: 0
