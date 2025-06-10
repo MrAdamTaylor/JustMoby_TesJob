@@ -1,32 +1,45 @@
+using System;
+using DragAndDrop;
 using FancyScrollView;
+using Infrastructure.DI.Tickable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragDropManager : MonoBehaviour, IDragDropManager
+public class DragDropManagerNoMono : IDragDropManager, ITickable
 {
-    [SerializeField] private Scroller _scroller;
-    [SerializeField] private DragDropElement _currentDragDropElement;
     private ItemData _currentItemData;
+    private DragDropElement _currentDragDropElement;
+    private Scroller _scroller;
+    
     private bool _isDragging;
+    private TownBuildSlot _townBuildSlot;
 
+    public DragDropManagerNoMono(Scroller scroller, DragDropElement currentDragDropElement, TownBuildSlot townBuildSlot)
+    {
+        _townBuildSlot = townBuildSlot;
+        _scroller = scroller;
+        _currentDragDropElement = currentDragDropElement;
+    }
+    
     public void StartDrag(ItemData itemData, Vector2 screenPosition)
     {
         _currentDragDropElement.enabled = true;
         _currentDragDropElement.Initialize(itemData, screenPosition);
-        
+    
         _currentDragDropElement.OnEndDragEvent += HandleEndDrag;
-        
+        _currentDragDropElement.OnEndDragEvent += _townBuildSlot.OnDrop;
+
         var eventData = new PointerEventData(EventSystem.current)
         {
             position = screenPosition,
-            button = PointerEventData.InputButton.Left
+            pointerDrag = _currentDragDropElement.gameObject
         };
         _currentDragDropElement.OnBeginDrag(eventData);
-        
+    
         _isDragging = true;
     }
     
-    private void Update()
+    public void Tick()
     {
         if (!_isDragging) return;
         
@@ -45,13 +58,13 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
             var endEventData = new PointerEventData(EventSystem.current)
             {
                 position = Input.mousePosition,
-                button = PointerEventData.InputButton.Left
+                pointerDrag = _currentDragDropElement.gameObject
             };
             _currentDragDropElement.OnEndDrag(endEventData);
             _isDragging = false;
         }
     }
-
+    
     private void HandleEndDrag(PointerEventData eventData)
     {
         _scroller.enabled = true;
@@ -59,5 +72,11 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
         if (_currentDragDropElement == null) return;
         _currentDragDropElement.enabled = false;
         _currentDragDropElement.OnEndDragEvent -= HandleEndDrag;
+        _currentDragDropElement.OnEndDragEvent -= _townBuildSlot.OnDrop;
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
     }
 }

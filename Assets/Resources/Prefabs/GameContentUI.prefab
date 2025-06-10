@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 5728429798481152848}
   - component: {fileID: 7263806442755284763}
   - component: {fileID: 5012782040629659804}
+  - component: {fileID: 7320827835335336422}
   m_Layer: 5
   m_Name: DragSprite
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 5012782040629659804}
   _rectTransform: {fileID: 7031195668403623493}
+  _canvasGroup: {fileID: 7320827835335336422}
 --- !u!114 &5012782040629659804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +167,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &7320827835335336422
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634116304487377432}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1127678026501981369
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +620,6 @@ GameObject:
   - component: {fileID: 3036560508702060173}
   - component: {fileID: 3010724278184366175}
   - component: {fileID: 522795633769189304}
-  - component: {fileID: 53534553758062852}
   - component: {fileID: 1587301367190547097}
   m_Layer: 5
   m_Name: GameContentUI
@@ -661,36 +674,8 @@ MonoBehaviour:
   DragDropManager: {fileID: 1587301367190547097}
   Scroller: {fileID: 2164221088557760535}
   DragDropScrollView: {fileID: 4055628307986840089}
---- !u!114 &53534553758062852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6046315582985989879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  DragDropElement: {fileID: 7263806442755284763}
+  TownBuildSlot: {fileID: 6694868822067739728}
 --- !u!114 &1587301367190547097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -704,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scroller: {fileID: 2164221088557760535}
-  _currentDragDrop: {fileID: 7263806442755284763}
+  _currentDragDropElement: {fileID: 7263806442755284763}
 --- !u!1 &8418496057528444171
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +776,6 @@ GameObject:
   - component: {fileID: 8308333740850510590}
   - component: {fileID: 6075428745440902138}
   - component: {fileID: 6694868822067739728}
-  - component: {fileID: 5997515965327014152}
   m_Layer: 5
   m_Name: PutCubesContent
   m_TagString: Untagged
@@ -839,33 +823,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d8bbe2254160f44c9e685be2340f1ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5997515965327014152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9058829106310810147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.039443612, g: 1, b: 0, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  _dropArea: {fileID: 8308333740850510590}

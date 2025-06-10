@@ -1,18 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class TownBuildSlot : MonoBehaviour
+namespace DragAndDrop
 {
-    // Start is called before the first frame update
-    void Start()
+    public class TownBuildSlot : MonoBehaviour, IDropHandler
     {
-        
-    }
+        [SerializeField] private RectTransform _dropArea;
+        public void OnDrop(PointerEventData eventData)
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(_dropArea, eventData.position,
+                    eventData.pressEventCamera))
+            {
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    _dropArea,
+                    eventData.position,
+                    eventData.pressEventCamera,
+                    out Vector2 localPoint
+                );
+                
+                RectTransform dropedRect = eventData.pointerDrag.GetComponent<RectTransform>();
 
-    // Update is called once per frame
-    void Update()
-    {
+                if (_dropArea.CheckByEdgesFromPosition(localPoint, dropedRect.rect.width, dropedRect.rect.height))
+                {
+                    Debug.Log($"<color=cyan>Right Drop at Local Position: {localPoint}</color>");
+                }
+                /*Debug.Log($"Левый край {_dropArea.rect.xMin}, Правый край {_dropArea.rect.xMax}, " +
+                          $"Верхний край {_dropArea.rect.yMax}, Нижний край {_dropArea.rect.yMin}");*/
+                
+                
+                
+            }
+
+        }
         
     }
 }

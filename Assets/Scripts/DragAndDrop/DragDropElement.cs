@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDropElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] private Image _image;
     [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private CanvasGroup _canvasGroup;
+    
     public event System.Action<PointerEventData> OnEndDragEvent;
     private Vector2 _offset;
 
@@ -24,6 +26,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             out _offset
         );
         _offset = _rectTransform.localPosition - new Vector3(_offset.x, _offset.y, 0);
+        _canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -41,6 +44,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        _canvasGroup.blocksRaycasts = true;
         OnEndDragEvent?.Invoke(eventData);
     }
 }

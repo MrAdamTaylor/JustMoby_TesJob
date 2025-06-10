@@ -1,5 +1,4 @@
 using System;
-using FancyScrollView;
 
 public class ItemData
 {
@@ -7,11 +6,11 @@ public class ItemData
     
     public CubeData CubeData;
 
-    public DragDropManager DragDropManager;
+    public IDragDropManager DragDropManager;
 
     public Action AdditionalAction;
 
-    public ItemData(string message, CubeData cubeData, DragDropManager dragDropManager)
+    public ItemData(string message, CubeData cubeData, IDragDropManager dragDropManager)
     {
         Message = message;
         CubeData = cubeData;
