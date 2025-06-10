@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using FancyScrollView;
 using UnityEngine;
 
-class DragDropScrollView : FancyScrollView<ItemData>
+public class DragDropScrollView : FancyScrollView<ItemData>
 {
     [SerializeField] private Scroller _scroller;
     [SerializeField] private GameObject _cellPrefab;

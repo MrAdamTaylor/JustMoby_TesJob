@@ -27,9 +27,6 @@ public class CubeCell : FancyCell<ItemData>, IPointerDownHandler
 
         _button.OnPointerAction += ()=> _itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition);
         _button.OnPointerAction += _itemData.AdditionalAction;
-        
-        _button.onClick.AddListener(()=> itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition));
-        _button.onClick.AddListener(itemData.AdditionalAction.Invoke);
     }
 
     public override void UpdatePosition(float position)
@@ -57,9 +54,5 @@ public class CubeCell : FancyCell<ItemData>, IPointerDownHandler
     {
         _itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition);
         _itemData.AdditionalAction?.Invoke();
-        
-        // ReSharper disable once EventUnsubscriptionViaAnonymousDelegate
-        _button.OnPointerAction -= ()=> _itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition);
-        _button.OnPointerAction -= _itemData.AdditionalAction;
     }
 }
