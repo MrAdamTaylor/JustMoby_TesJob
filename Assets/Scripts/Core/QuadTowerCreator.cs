@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class QuadTowerCreator
 {
+    private const string PATH_TO_SLOT = "Prefabs/TowerSlot";
+    
     [Inject] private TowerBuildSlotView _view;
     [Inject] private TowersConfig _towersConfig;
     [Inject] private QuadObjectPool _quadObjectPool; 
-    [Inject] private TowerUpSlot _towerUpSlot;
+    [Inject] private UIFactory _uiFactory;
+    [Inject] private OnDroppedHandler _onDropped;
     
     private List<QuadTown> _quadTowns = new();
 
@@ -27,18 +30,16 @@ public class QuadTowerCreator
         if (_towersConfig.CheckByCount(_quadTowns.Count))
         {
             Debug.Log($"Can Create!: ");
-            var gameObject = _quadObjectPool.SpawnAtPosition(dragInformation);
+            var element = _quadObjectPool.SpawnAtPosition(dragInformation);
             
+            GameObject slot = _uiFactory.CreateTowerSlot(PATH_TO_SLOT, dragInformation);
+
+            if (slot.TryGetComponent(out TowerUpSlot towerUpSlot))
+            {
+                _onDropped.Add(towerUpSlot);
+            }
             
-            _towerUpSlot.DropArea.SetParent(dragInformation.DropArea);
-            _towerUpSlot.DropArea.localScale = Vector3.one;
-            _towerUpSlot.DropArea.anchoredPosition = 
-                new Vector2(dragInformation.LocalPoint.x, dragInformation.LocalPoint.y+dragInformation.Height);
-            _quadTowns.Add(new QuadTown(gameObject));
-            
-            /*rectTransform.SetParent(information.DropArea);
-            rectTransform.localScale = Vector3.one;
-            rectTransform.anchoredPosition = information.LocalPoint;*/
+            _quadTowns.Add(new QuadTown(slot,element, _quadObjectPool));
         }
     }
 }
@@ -46,9 +47,29 @@ public class QuadTowerCreator
 public class QuadTown
 {
     private LinkedList<GameObject> _town = new();
+    private GameObject _slot;
+    private RectTransform _slotRectTransform;
+    private GameObject _gameObject;
+    private QuadObjectPool _quadObjectPool;
 
-    public QuadTown(GameObject gameObject)
+    public QuadTown(GameObject slot, GameObject gameObject, QuadObjectPool quadObjectPool)
     {
+        _gameObject = gameObject;
+        _slot = slot;
+        _slotRectTransform = slot.GetComponent<RectTransform>();
+        _slot.TryGetComponent(out TowerUpSlot towerUpSlot);
+        _quadObjectPool = quadObjectPool;
+        towerUpSlot.SetTown(this);
+    }
+
+    public void AddToTown(DragInformation dragInformation)
+    {
+        DragInformation dragInformation2 = dragInformation;
+        
+        dragInformation2.LocalPoint = _slotRectTransform.anchoredPosition;
+        GameObject element = _quadObjectPool.SpawnAtPosition(dragInformation);
+        _town.AddLast(element);
+        _slotRectTransform.anchoredPosition = new Vector2(_slotRectTransform.anchoredPosition.x, _slotRectTransform.anchoredPosition.y+dragInformation.Height);
         
     }
 }

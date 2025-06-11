@@ -12,7 +12,6 @@ public class CubeCell : FancyCell<ItemData>, IPointerDownHandler
     [SerializeField] private CustomButton _button;
     
     private ItemData _itemData;
-    private 
     
     static class AnimatorHash
     {

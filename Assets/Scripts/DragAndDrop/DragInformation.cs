@@ -12,7 +12,7 @@ namespace DragAndDrop
 
         public DragInformation(Vector2 localPoint, RectTransform dropArea, Sprite sprite, float height)
         {
-            Height = height * 0.9f;
+            Height = height;
             Sprite = sprite;
             DropArea = dropArea;
             LocalPoint = localPoint;

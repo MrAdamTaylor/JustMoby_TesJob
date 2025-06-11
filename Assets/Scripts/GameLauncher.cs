@@ -31,12 +31,16 @@ public class GameLauncher : MonoBehaviour
         GameObject uiInstance = Instantiate(mainUI, _canvas.transform, false);
         GameContentProvider gameContentProvider = uiInstance.GetComponent<GameContentProvider>();
         
+        _container.BindData(typeof(UIFactory), typeof(UIFactory), LifeTime.Transient);
+        
         _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();
-        _container.Bind<TowerUpSlot>().AsMono(gameContentProvider.TowerUpSlot).Registration();
         
         DragDropScrollView dragDropScrollView = gameContentProvider.DragDropScrollView;
+        OnDroppedHandler onDroppedHandler = new OnDroppedHandler();
+        onDroppedHandler.Add(gameContentProvider.TowerBuildSlotView);
+        _container.Bind<OnDroppedHandler>().AsCached(onDroppedHandler).Registration();
         DragDropManagerNoMono dragDropManager = new DragDropManagerNoMono(gameContentProvider.Scroller, 
-            gameContentProvider.DragDropElementView, gameContentProvider.TowerBuildSlotView);
+            gameContentProvider.DragDropElementView, onDroppedHandler);
         
         _container.Bind<DragDropManagerNoMono>().AsCached(dragDropManager).AsUpdate<ITickable>().Registration();
         

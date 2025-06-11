@@ -12,11 +12,11 @@ public class DragDropManagerNoMono : IDragDropManager, ITickable
     private Scroller _scroller;
     
     private bool _isDragging;
-    private TowerBuildSlotView _towerBuildSlotView;
+    private OnDroppedHandler _onDroppedHandler;
 
-    public DragDropManagerNoMono(Scroller scroller, DragDropElementView currentDragDropElementView, TowerBuildSlotView towerBuildSlotView)
+    public DragDropManagerNoMono(Scroller scroller, DragDropElementView currentDragDropElementView, OnDroppedHandler onDroppedHandler)
     {
-        _towerBuildSlotView = towerBuildSlotView;
+        _onDroppedHandler = onDroppedHandler;
         _scroller = scroller;
         _currentDragDropElementView = currentDragDropElementView;
     }
@@ -27,7 +27,7 @@ public class DragDropManagerNoMono : IDragDropManager, ITickable
         _currentDragDropElementView.Initialize(itemData, screenPosition);
     
         _currentDragDropElementView.OnEndDragEvent += HandleEndDrag;
-        _currentDragDropElementView.OnEndDragEvent += _towerBuildSlotView.OnDrop;
+        _onDroppedHandler.Subscribe(_currentDragDropElementView);
 
         var eventData = new PointerEventData(EventSystem.current)
         {
@@ -72,7 +72,7 @@ public class DragDropManagerNoMono : IDragDropManager, ITickable
         if (_currentDragDropElementView == null) return;
         _currentDragDropElementView.enabled = false;
         _currentDragDropElementView.OnEndDragEvent -= HandleEndDrag;
-        _currentDragDropElementView.OnEndDragEvent -= _towerBuildSlotView.OnDrop;
+        _onDroppedHandler.Unsubscribe(_currentDragDropElementView);
     }
 
     public void Dispose()
