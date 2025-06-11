@@ -7,6 +7,7 @@ public class GameContentProvider : MonoBehaviour
     public DragDropManager DragDropManager;
     public Scroller Scroller;
     public DragDropScrollView DragDropScrollView;
-    public DragDropElement DragDropElement;
-    public TownBuildSlot TownBuildSlot;
+    public DragDropElementView DragDropElementView;
+    public TowerBuildSlotView TowerBuildSlotView;
+    public TowerUpSlot TowerUpSlot;
 }

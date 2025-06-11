@@ -16,6 +16,7 @@ namespace Infrastructure.DI.Container
         private static LifeTime _lifeTime = LifeTime.Transient;
         private static bool _asCached = false;
         private static bool _asMono = false;
+        private static bool _asScriptable;
         private readonly IScope _scope;
         private static object _tempObject;
         private static Type _tempObjectType;
@@ -34,6 +35,15 @@ namespace Infrastructure.DI.Container
             _tickProvider = tickProvider;
             _gameStateLifeManager = gameStateLifeManager;
             _scope = _container.CreateScope();
+            
+            _asUpdate = false;
+            _disposeEvent = DisposeEvent.OnDestroy;
+            _lifeTime = LifeTime.Transient;
+            _asCached = false;
+            _asMono = false;
+            _asScriptable = false;
+            _tempObject = null;
+            _tempObjectType = null;
         }
 
         public BindingBuilder<T> AsUpdate<TTick>() where TTick : class
@@ -52,6 +62,7 @@ namespace Infrastructure.DI.Container
         {
             _asMono = true;
             _tempObject = obj;
+            _asCached = true;
             return this;
         }
 
@@ -68,6 +79,15 @@ namespace Infrastructure.DI.Container
         {
             _asMono = true;
             _tempObject = obj;
+            _asCached = true;
+            return this;
+        }
+
+        public  BindingBuilder<T> AsScriptable(object obj)
+        {
+            _asScriptable = true;
+            _tempObject = obj;
+            _asCached = true;
             return this;
         }
 
@@ -77,6 +97,8 @@ namespace Infrastructure.DI.Container
                 _container.BindData(typeof(T), typeof(T), _lifeTime);
             else if (_asMono)
                 _container.CacheMono(_tempObject.GetType(), _tempObject as MonoBehaviour);
+            else if(_asScriptable)
+                _container.CacheScriptableObject(_tempObject.GetType(), _tempObject as ScriptableObject);
             else
                 _container.CacheType(_tempObjectType ?? typeof(T), _tempObject);
 
@@ -92,7 +114,10 @@ namespace Infrastructure.DI.Container
             _disposeEvent = DisposeEvent.OnDestroy;
             _lifeTime = LifeTime.Transient;
             _asCached = false;
+            _asMono = false;
+            _asScriptable = false;
             _tempObject = null;
+            _tempObjectType = null;
         }
     }
 

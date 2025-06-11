@@ -620,7 +620,6 @@ GameObject:
   - component: {fileID: 3036560508702060173}
   - component: {fileID: 3010724278184366175}
   - component: {fileID: 522795633769189304}
-  - component: {fileID: 1587301367190547097}
   m_Layer: 5
   m_Name: GameContentUI
   m_TagString: Untagged
@@ -644,6 +643,7 @@ RectTransform:
   - {fileID: 8308333740850510590}
   - {fileID: 3319309296147128803}
   - {fileID: 7031195668403623493}
+  - {fileID: 3939990716330526344}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -671,25 +671,101 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c2e768370275c4991bc9d5c57e6a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DragDropManager: {fileID: 1587301367190547097}
+  DragDropManager: {fileID: 0}
   Scroller: {fileID: 2164221088557760535}
   DragDropScrollView: {fileID: 4055628307986840089}
-  DragDropElement: {fileID: 7263806442755284763}
-  TownBuildSlot: {fileID: 6694868822067739728}
---- !u!114 &1587301367190547097
+  DragDropElementView: {fileID: 7263806442755284763}
+  TowerBuildSlotView: {fileID: 6694868822067739728}
+  TowerUpSlot: {fileID: 6432339534076783436}
+--- !u!1 &6301939306182242916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3939990716330526344}
+  - component: {fileID: 707314156843119222}
+  - component: {fileID: 6432339534076783436}
+  - component: {fileID: 4363441478484790392}
+  m_Layer: 5
+  m_Name: TowerSlot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3939990716330526344
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301939306182242916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3036560508702060173}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1132, y: -194}
+  m_SizeDelta: {x: 175, y: 175}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &707314156843119222
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301939306182242916}
+  m_CullTransparentMesh: 1
+--- !u!114 &6432339534076783436
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6046315582985989879}
+  m_GameObject: {fileID: 6301939306182242916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8051c73f50933943bccda08602ff723, type: 3}
+  m_Script: {fileID: 11500000, guid: d725c4c148c4c5e42b2ca82e3537486e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scroller: {fileID: 2164221088557760535}
-  _currentDragDropElement: {fileID: 7263806442755284763}
+  _dropArea: {fileID: 3939990716330526344}
+--- !u!114 &4363441478484790392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301939306182242916}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &8418496057528444171
 GameObject:
   m_ObjectHideFlags: 0

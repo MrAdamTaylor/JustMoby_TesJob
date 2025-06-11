@@ -5,23 +5,23 @@ using UnityEngine.EventSystems;
 public class DragDropManager : MonoBehaviour, IDragDropManager
 {
     [SerializeField] private Scroller _scroller;
-    [SerializeField] private DragDropElement _currentDragDropElement;
+    [SerializeField] private DragDropElementView _currentDragDropElementView;
     private ItemData _currentItemData;
     private bool _isDragging;
 
     public void StartDrag(ItemData itemData, Vector2 screenPosition)
     {
-        _currentDragDropElement.enabled = true;
-        _currentDragDropElement.Initialize(itemData, screenPosition);
+        _currentDragDropElementView.enabled = true;
+        _currentDragDropElementView.Initialize(itemData, screenPosition);
         
-        _currentDragDropElement.OnEndDragEvent += HandleEndDrag;
+        _currentDragDropElementView.OnEndDragEvent += HandleEndDrag;
         
         var eventData = new PointerEventData(EventSystem.current)
         {
             position = screenPosition,
             button = PointerEventData.InputButton.Left
         };
-        _currentDragDropElement.OnBeginDrag(eventData);
+        _currentDragDropElementView.OnBeginDrag(eventData);
         
         _isDragging = true;
     }
@@ -30,14 +30,14 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
     {
         if (!_isDragging) return;
         
-        if (_currentDragDropElement != null)
+        if (_currentDragDropElementView != null)
         {
             var eventData = new PointerEventData(EventSystem.current)
             {
                 position = Input.mousePosition,
                 delta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"))
             };
-            _currentDragDropElement.OnDrag(eventData);
+            _currentDragDropElementView.OnDrag(eventData);
         }
         
         if (Input.GetMouseButtonUp(0))
@@ -47,7 +47,7 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
                 position = Input.mousePosition,
                 button = PointerEventData.InputButton.Left
             };
-            _currentDragDropElement.OnEndDrag(endEventData);
+            _currentDragDropElementView.OnEndDrag(endEventData);
             _isDragging = false;
         }
     }
@@ -56,8 +56,8 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
     {
         _scroller.enabled = true;
         
-        if (_currentDragDropElement == null) return;
-        _currentDragDropElement.enabled = false;
-        _currentDragDropElement.OnEndDragEvent -= HandleEndDrag;
+        if (_currentDragDropElementView == null) return;
+        _currentDragDropElementView.enabled = false;
+        _currentDragDropElementView.OnEndDragEvent -= HandleEndDrag;
     }
 }

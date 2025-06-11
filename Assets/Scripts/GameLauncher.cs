@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DragAndDrop;
 using Infrastructure.DI.Container;
 using Infrastructure.DI.Model;
 using Infrastructure.DI.Tickable;
@@ -19,20 +20,27 @@ public class GameLauncher : MonoBehaviour
     {
         var cubeSet = Resources.Load<CubeSet>("Configs/NewCubeSet");
         var mainConfig = Resources.Load<MainGameConfigs>("Configs/GameConfigs");
+        var towersConfig = Resources.Load<TowersConfig>("Configs/TowersConfig");
         var mainUI = Resources.Load<GameObject>(PATH_TO_MAIN_UI);
         
         _container = new Container();
         _container.CreateScope();
         
-        GameObject uiInstance = Object.Instantiate(mainUI, _canvas.transform, false);
+        _container.Bind<TowersConfig>().AsScriptable(towersConfig).Registration();
+        
+        GameObject uiInstance = Instantiate(mainUI, _canvas.transform, false);
         GameContentProvider gameContentProvider = uiInstance.GetComponent<GameContentProvider>();
         
-        DragDropScrollView dragDropScrollView = gameContentProvider.DragDropScrollView;
+        _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();
+        _container.Bind<TowerUpSlot>().AsMono(gameContentProvider.TowerUpSlot).Registration();
         
+        DragDropScrollView dragDropScrollView = gameContentProvider.DragDropScrollView;
         DragDropManagerNoMono dragDropManager = new DragDropManagerNoMono(gameContentProvider.Scroller, 
-            gameContentProvider.DragDropElement, gameContentProvider.TownBuildSlot);
+            gameContentProvider.DragDropElementView, gameContentProvider.TowerBuildSlotView);
         
         _container.Bind<DragDropManagerNoMono>().AsCached(dragDropManager).AsUpdate<ITickable>().Registration();
+        
+        
 
         var items = Enumerable.Range(0, cubeSet.CubeSets.Count)
             .Select(i => new ItemData($"Cell {i}", cubeSet.CubeSets[i], dragDropManager))
@@ -43,10 +51,19 @@ public class GameLauncher : MonoBehaviour
         GameObject pool = new GameObject("BuildPool");
         pool.transform.SetParent(_canvas.transform, false);
 
-        for (int i = 0; i < mainConfig.PoolCounts; i++)
+        QuadObjectPool objectPool = new QuadObjectPool();
+        objectPool.Construct(mainConfig.PoolCounts, ()=>pool.transform.CreateChildImageComponent("Element"));
+        _container.Bind<QuadObjectPool>().AsCached(objectPool).Registration();
+        
+        
+        QuadTowerCreator quadTowerCreator = new QuadTowerCreator();
+        _container.Construct(quadTowerCreator);
+        quadTowerCreator.Configure();
+        
+        /*for (int i = 0; i < mainConfig.PoolCounts; i++)
         {
             pool.transform.CreateChildImageComponent("Element"+i);
-        }
+        }*/
         
         _container.InitializeITickable();
     }

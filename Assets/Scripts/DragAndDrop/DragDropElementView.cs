@@ -2,18 +2,22 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDropElement : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDropElementView : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] private Image _image;
     [SerializeField] private RectTransform _rectTransform;
     [SerializeField] private CanvasGroup _canvasGroup;
     
     public event System.Action<PointerEventData> OnEndDragEvent;
+
+    public Sprite DragSprite { get; private set; }
+
     private Vector2 _offset;
 
     public void Initialize(ItemData itemData, Vector2 screenPosition)
     {
         _image.sprite = itemData.CubeData.CubeSprite;
+        DragSprite = itemData.CubeData.CubeSprite;
         _rectTransform.position = screenPosition;
     }
 
