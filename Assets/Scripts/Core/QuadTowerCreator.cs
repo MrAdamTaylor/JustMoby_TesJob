@@ -39,37 +39,7 @@ public class QuadTowerCreator
                 _onDropped.Add(towerUpSlot);
             }
             
-            _quadTowns.Add(new QuadTown(slot,element, _quadObjectPool));
+            _quadTowns.Add(new QuadTown(slot,element, _quadObjectPool, dragInformation.DropArea));
         }
-    }
-}
-
-public class QuadTown
-{
-    private LinkedList<GameObject> _town = new();
-    private GameObject _slot;
-    private RectTransform _slotRectTransform;
-    private GameObject _gameObject;
-    private QuadObjectPool _quadObjectPool;
-
-    public QuadTown(GameObject slot, GameObject gameObject, QuadObjectPool quadObjectPool)
-    {
-        _gameObject = gameObject;
-        _slot = slot;
-        _slotRectTransform = slot.GetComponent<RectTransform>();
-        _slot.TryGetComponent(out TowerUpSlot towerUpSlot);
-        _quadObjectPool = quadObjectPool;
-        towerUpSlot.SetTown(this);
-    }
-
-    public void AddToTown(DragInformation dragInformation)
-    {
-        DragInformation dragInformation2 = dragInformation;
-        
-        dragInformation2.LocalPoint = _slotRectTransform.anchoredPosition;
-        GameObject element = _quadObjectPool.SpawnAtPosition(dragInformation);
-        _town.AddLast(element);
-        _slotRectTransform.anchoredPosition = new Vector2(_slotRectTransform.anchoredPosition.x, _slotRectTransform.anchoredPosition.y+dragInformation.Height);
-        
     }
 }

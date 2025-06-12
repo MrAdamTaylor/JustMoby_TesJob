@@ -1,32 +1,60 @@
+using System;
 using FancyScrollView;
+using Infrastructure.DI.Tickable;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragDropManager : MonoBehaviour, IDragDropManager
+public class DragDropManager : IDragDropManager, ITickable
 {
-    [SerializeField] private Scroller _scroller;
-    [SerializeField] private DragDropElementView _currentDragDropElementView;
     private ItemData _currentItemData;
+    private DragDropElementView _currentDragDropElementView;
+    private Scroller _scroller;
+    
     private bool _isDragging;
+    private OnDroppedHandler _onDroppedHandler;
+    private InputHandler _inputHandler;
+
+    public DragDropManager(Scroller scroller, DragDropElementView currentDragDropElementView, 
+        OnDroppedHandler onDroppedHandler, InputHandler inputHandler)
+    {
+        _inputHandler = inputHandler;
+        _inputHandler.OnMouseUp += HandleMouseUp;
+        
+        _onDroppedHandler = onDroppedHandler;
+        _scroller = scroller;
+        _currentDragDropElementView = currentDragDropElementView;
+    }
+
+    private void HandleMouseUp()
+    {
+        var endEventData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition,
+            pointerDrag = _currentDragDropElementView?.gameObject
+        };
+        _currentDragDropElementView?.OnEndDrag(endEventData);
+        _isDragging = false;
+    }
 
     public void StartDrag(ItemData itemData, Vector2 screenPosition)
     {
-        _currentDragDropElementView.enabled = true;
+        //_currentDragDropElementView.enabled = true;
         _currentDragDropElementView.Initialize(itemData, screenPosition);
-        
+    
         _currentDragDropElementView.OnEndDragEvent += HandleEndDrag;
-        
+        _onDroppedHandler.Subscribe(_currentDragDropElementView);
+
         var eventData = new PointerEventData(EventSystem.current)
         {
             position = screenPosition,
-            button = PointerEventData.InputButton.Left
+            pointerDrag = _currentDragDropElementView.gameObject
         };
         _currentDragDropElementView.OnBeginDrag(eventData);
-        
+    
         _isDragging = true;
     }
     
-    private void Update()
+    public void Tick()
     {
         if (!_isDragging) return;
         
@@ -39,25 +67,22 @@ public class DragDropManager : MonoBehaviour, IDragDropManager
             };
             _currentDragDropElementView.OnDrag(eventData);
         }
-        
-        if (Input.GetMouseButtonUp(0))
-        {
-            var endEventData = new PointerEventData(EventSystem.current)
-            {
-                position = Input.mousePosition,
-                button = PointerEventData.InputButton.Left
-            };
-            _currentDragDropElementView.OnEndDrag(endEventData);
-            _isDragging = false;
-        }
     }
-
+    
     private void HandleEndDrag(PointerEventData eventData)
     {
         _scroller.enabled = true;
         
-        if (_currentDragDropElementView == null) return;
-        _currentDragDropElementView.enabled = false;
+        if (_currentDragDropElementView == null) 
+            return;
+        //_currentDragDropElementView.enabled = false;
         _currentDragDropElementView.OnEndDragEvent -= HandleEndDrag;
+        _onDroppedHandler.Unsubscribe(_currentDragDropElementView);
+    }
+
+    public void Dispose()
+    {
+        _inputHandler.OnMouseUp -= HandleMouseUp;
+        GC.SuppressFinalize(this);
     }
 }

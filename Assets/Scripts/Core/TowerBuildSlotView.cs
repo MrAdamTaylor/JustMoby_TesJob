@@ -10,10 +10,11 @@ namespace DragAndDrop
         
         public override void OnDropped(PointerEventData eventData)
         {
-            /*if (RectTransformUtility.RectangleContainsScreenPoint(_dropArea, eventData.position,
-                    eventData.pressEventCamera))
-            {*/
             base.OnDropped(eventData);
+        
+            if(!InRectangle(eventData))
+                return;
+            
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _dropArea,
                     eventData.position,
@@ -31,7 +32,6 @@ namespace DragAndDrop
                 }
                         
             }
-            //}
         }
         
     }

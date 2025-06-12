@@ -16,6 +16,10 @@ public class TowerUpSlot : BaseSlot
     public override void OnDropped(PointerEventData eventData)
     {
         base.OnDropped(eventData);
+        
+        if(!InRectangle(eventData))
+            return;
+        
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _dropArea,
             eventData.position,
@@ -36,19 +40,5 @@ public class TowerUpSlot : BaseSlot
     private void SetToTown(DragInformation dragInformation)
     {
         _quadTown.AddToTown(dragInformation);
-    }
-}
-
-public abstract class BaseSlot : MonoBehaviour, IOnDropped
-{
-    [SerializeField] protected RectTransform _dropArea;
-    public virtual void OnDropped(PointerEventData eventData)
-    {
-        if (!RectTransformUtility.RectangleContainsScreenPoint(_dropArea, eventData.position,
-                eventData.pressEventCamera))
-        {
-            Debug.Log($"Logic in Base Class!");
-            return;
-        }
     }
 }

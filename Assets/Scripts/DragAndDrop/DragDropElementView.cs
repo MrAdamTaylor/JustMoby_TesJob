@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DragDropElementView : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDropElementView : MonoBehaviour, IHideHandler
 {
     [SerializeField] private Image _image;
     [SerializeField] private RectTransform _rectTransform;
@@ -13,6 +13,8 @@ public class DragDropElementView : MonoBehaviour, IBeginDragHandler, IEndDragHan
     public Sprite DragSprite { get; private set; }
 
     private Vector2 _offset;
+
+    private bool _isOff;
 
     public void Initialize(ItemData itemData, Vector2 screenPosition)
     {
@@ -50,5 +52,17 @@ public class DragDropElementView : MonoBehaviour, IBeginDragHandler, IEndDragHan
     {
         _canvasGroup.blocksRaycasts = true;
         OnEndDragEvent?.Invoke(eventData);
+    }
+
+    public void HideHandler()
+    {
+        if (_isOff)
+        {
+            //Play Animation (Maybe Coroutine)
+        }
+        else
+        {
+            //DisableGameObject
+        }
     }
 }

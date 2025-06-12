@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using DragAndDrop;
 using Infrastructure.DI.Container;
@@ -39,13 +38,16 @@ public class GameLauncher : MonoBehaviour
         OnDroppedHandler onDroppedHandler = new OnDroppedHandler();
         onDroppedHandler.Add(gameContentProvider.TowerBuildSlotView);
         _container.Bind<OnDroppedHandler>().AsCached(onDroppedHandler).Registration();
-        DragDropManagerNoMono dragDropManager = new DragDropManagerNoMono(gameContentProvider.Scroller, 
-            gameContentProvider.DragDropElementView, onDroppedHandler);
-        
-        _container.Bind<DragDropManagerNoMono>().AsCached(dragDropManager).AsUpdate<ITickable>().Registration();
-        
-        
 
+        InputHandler inputHandler = new InputHandler();
+        _container.Bind<InputHandler>().AsCached(inputHandler).AsUpdate<ITickable>().Registration();
+        
+        DragDropManager dragDropManager = new DragDropManager(gameContentProvider.Scroller, 
+            gameContentProvider.DragDropElementView, onDroppedHandler, inputHandler);
+        
+        _container.Bind<DragDropManager>().AsCached(dragDropManager).AsUpdate<ITickable>().Registration();
+        
+        
         var items = Enumerable.Range(0, cubeSet.CubeSets.Count)
             .Select(i => new ItemData($"Cell {i}", cubeSet.CubeSets[i], dragDropManager))
             .ToArray();
@@ -63,11 +65,6 @@ public class GameLauncher : MonoBehaviour
         QuadTowerCreator quadTowerCreator = new QuadTowerCreator();
         _container.Construct(quadTowerCreator);
         quadTowerCreator.Configure();
-        
-        /*for (int i = 0; i < mainConfig.PoolCounts; i++)
-        {
-            pool.transform.CreateChildImageComponent("Element"+i);
-        }*/
         
         _container.InitializeITickable();
     }
