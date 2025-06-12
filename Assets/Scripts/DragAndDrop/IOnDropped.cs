@@ -1,6 +1,9 @@
 using UnityEngine.EventSystems;
 
-public interface IOnDropped
+namespace DragAndDrop
 {
-    public void OnDropped(PointerEventData eventData);
+    public interface IOnDropped
+    {
+        public void OnDropped(PointerEventData eventData);
+    }
 }

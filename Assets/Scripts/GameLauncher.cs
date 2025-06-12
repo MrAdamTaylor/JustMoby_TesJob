@@ -1,8 +1,14 @@
 using System.Linq;
+using Core;
 using DragAndDrop;
+using Extension;
+using Factory;
 using Infrastructure.DI.Container;
 using Infrastructure.DI.Model;
 using Infrastructure.DI.Tickable;
+using ObjectPool;
+using Scroller;
+using StaticData;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -49,7 +55,7 @@ public class GameLauncher : MonoBehaviour
         
         
         var items = Enumerable.Range(0, cubeSet.CubeSets.Count)
-            .Select(i => new ItemData($"Cell {i}", cubeSet.CubeSets[i], dragDropManager))
+            .Select(i => new ItemData(cubeSet.CubeSets[i], dragDropManager))
             .ToArray();
         
         dragDropScrollView.UpdateData(items);

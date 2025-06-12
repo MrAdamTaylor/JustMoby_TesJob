@@ -1,18 +1,22 @@
+using DragAndDrop;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class BaseSlot : MonoBehaviour, IOnDropped
+namespace Core
 {
-    [SerializeField] protected RectTransform _dropArea;
-    public virtual void OnDropped(PointerEventData eventData) { }
-
-    protected bool InRectangle(PointerEventData eventData)
+    public abstract class BaseSlot : MonoBehaviour, IOnDropped
     {
-        if (RectTransformUtility.RectangleContainsScreenPoint(_dropArea, eventData.position,
-                eventData.pressEventCamera))
+        [SerializeField] protected RectTransform _dropArea;
+        public virtual void OnDropped(PointerEventData eventData) { }
+
+        protected bool InRectangle(PointerEventData eventData)
         {
-            return true;
+            if (RectTransformUtility.RectangleContainsScreenPoint(_dropArea, eventData.position,
+                    eventData.pressEventCamera))
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 }

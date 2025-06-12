@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class BuildTowerHandler : MonoBehaviour
+namespace Core
 {
+    public class BuildTowerHandler : MonoBehaviour
+    {
     
+    }
 }

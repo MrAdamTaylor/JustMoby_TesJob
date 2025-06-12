@@ -1,6 +1,7 @@
-using UnityEngine;
-
-public interface IHideHandler
+namespace Core
 {
-    public void HideHandler();
+    public interface IHideHandler
+    {
+        public void HideHandler();
+    }
 }

@@ -1,6 +1,10 @@
+using Scroller;
 using UnityEngine;
 
-public interface IDragDropManager
+namespace DragAndDrop
 {
-    public void StartDrag(ItemData itemData, Vector2 screenPosition);
+    public interface IDragDropManager
+    {
+        public void StartDrag(ItemData itemData, Vector2 screenPosition);
+    }
 }

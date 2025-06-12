@@ -1,20 +1,24 @@
+using Core;
 using DragAndDrop;
 using UnityEngine;
 
-public class UIFactory 
+namespace Factory
 {
-    public GameObject CreateTowerSlot(string path,DragInformation dragInformation)
+    public class UIFactory 
     {
-        GameObject ui = Object.Instantiate(Resources.Load<GameObject>(path));
-
-        if (ui.TryGetComponent(out TowerUpSlot towerUpSlot))
+        public GameObject CreateTowerSlot(string path,DragInformation dragInformation)
         {
-            towerUpSlot.DropArea.SetParent(dragInformation.DropArea);
-            towerUpSlot.DropArea.localScale = Vector3.one;
-            towerUpSlot.DropArea.anchoredPosition = 
-                new Vector2(dragInformation.LocalPoint.x, dragInformation.LocalPoint.y+dragInformation.Height);
-        }
+            GameObject ui = Object.Instantiate(Resources.Load<GameObject>(path));
 
-        return ui;
+            if (ui.TryGetComponent(out TowerUpSlot towerUpSlot))
+            {
+                towerUpSlot.DropArea.SetParent(dragInformation.DropArea);
+                towerUpSlot.DropArea.localScale = Vector3.one;
+                towerUpSlot.DropArea.anchoredPosition = 
+                    new Vector2(dragInformation.LocalPoint.x, dragInformation.LocalPoint.y+dragInformation.Height);
+            }
+
+            return ui;
+        }
     }
 }

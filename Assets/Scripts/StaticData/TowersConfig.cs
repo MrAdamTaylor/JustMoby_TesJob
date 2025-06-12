@@ -1,10 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TowersConfigs", menuName = "TowersConfig")]
-public class TowersConfig : ScriptableObject
+namespace StaticData
 {
-    [Range(1,3)] 
-    [SerializeField] private int MaxTowers = 1;
+    [CreateAssetMenu(fileName = "TowersConfigs", menuName = "TowersConfig")]
+    public class TowersConfig : ScriptableObject
+    {
+        [Range(1,3)] 
+        [SerializeField] private int MaxTowers = 1;
 
-    public bool CheckByCount(int count) => count < MaxTowers;
+        public bool CheckByCount(int count) => count < MaxTowers;
+    }
 }

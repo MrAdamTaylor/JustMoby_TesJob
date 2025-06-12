@@ -137,6 +137,8 @@ MonoBehaviour:
   _image: {fileID: 5012782040629659804}
   _rectTransform: {fileID: 7031195668403623493}
   _canvasGroup: {fileID: 7320827835335336422}
+  _scaleSize: {x: 5, y: 5, z: 5}
+  _animationSpeed: 0.994
 --- !u!114 &5012782040629659804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -674,7 +676,6 @@ MonoBehaviour:
   DragDropScrollView: {fileID: 4055628307986840089}
   DragDropElementView: {fileID: 7263806442755284763}
   TowerBuildSlotView: {fileID: 6694868822067739728}
-  TowerUpSlot: {fileID: 0}
 --- !u!1 &8418496057528444171
 GameObject:
   m_ObjectHideFlags: 0

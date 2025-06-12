@@ -1,11 +1,14 @@
-using DragAndDrop;
-using FancyScrollView;
+using Core;
+using Scroller;
 using UnityEngine;
 
-public class GameContentProvider : MonoBehaviour
+namespace DragAndDrop
 {
-    public Scroller Scroller;
-    public DragDropScrollView DragDropScrollView;
-    public DragDropElementView DragDropElementView;
-    public TowerBuildSlotView TowerBuildSlotView;
+    public class GameContentProvider : MonoBehaviour
+    {
+        public FancyScrollView.Scroller Scroller;
+        public DragDropScrollView DragDropScrollView;
+        public DragDropElementView DragDropElementView;
+        public TowerBuildSlotView TowerBuildSlotView;
+    }
 }

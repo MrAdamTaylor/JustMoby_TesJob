@@ -8,10 +8,12 @@ namespace DragAndDrop
         public RectTransform DropArea;
         public Sprite Sprite;
         public float Height;
+        public IFlagSetter FlagSetter;
 
 
-        public DragInformation(Vector2 localPoint, RectTransform dropArea, Sprite sprite, float height)
+        public DragInformation(Vector2 localPoint, RectTransform dropArea, Sprite sprite, float height, IFlagSetter flagSetter)
         {
+            FlagSetter = flagSetter;
             Height = height;
             Sprite = sprite;
             DropArea = dropArea;

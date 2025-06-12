@@ -1,27 +1,30 @@
 using System.Collections.Generic;
 
-public class OnDroppedHandler
+namespace DragAndDrop
 {
-    private List<IOnDropped> OnDropped = new();
-
-    public void Add(IOnDropped onDropped)
+    public class OnDroppedHandler
     {
-        OnDropped.Add(onDropped);
-    }
+        private List<IOnDropped> OnDropped = new();
 
-    public void Subscribe(DragDropElementView elementView)
-    {
-        for (int i = 0; i < OnDropped.Count; i++)
+        public void Add(IOnDropped onDropped)
         {
-            elementView.OnEndDragEvent += OnDropped[i].OnDropped;
+            OnDropped.Add(onDropped);
         }
-    }
 
-    public void Unsubscribe(DragDropElementView elementView)
-    {
-        for (int i = 0; i < OnDropped.Count; i++)
+        public void Subscribe(DragDropElementView elementView)
         {
-            elementView.OnEndDragEvent -= OnDropped[i].OnDropped;
+            for (int i = 0; i < OnDropped.Count; i++)
+            {
+                elementView.OnEndDragEvent += OnDropped[i].OnDropped;
+            }
+        }
+
+        public void Unsubscribe(DragDropElementView elementView)
+        {
+            for (int i = 0; i < OnDropped.Count; i++)
+            {
+                elementView.OnEndDragEvent -= OnDropped[i].OnDropped;
+            }
         }
     }
 }

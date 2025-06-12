@@ -2,11 +2,14 @@ using System;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CustomButton : Button
+namespace Scroller
 {
-    public event Action OnPointerAction;
-    public override void OnPointerDown(PointerEventData eventData)
+    public class CustomButton : Button
     {
-        OnPointerAction?.Invoke();
+        public event Action OnPointerAction;
+        public override void OnPointerDown(PointerEventData eventData)
+        {
+            OnPointerAction?.Invoke();
+        }
     }
 }

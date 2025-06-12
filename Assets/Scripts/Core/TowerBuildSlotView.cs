@@ -1,8 +1,10 @@
 using System;
+using DragAndDrop;
+using Extension;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DragAndDrop
+namespace Core
 {
     public class TowerBuildSlotView : BaseSlot
     {
@@ -26,11 +28,10 @@ namespace DragAndDrop
             {
                 if (_dropArea.CheckByEdgesFromPosition(localPoint, dropedRect.rect.width, dropedRect.rect.height))
                 {
-                    DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.DragSprite, dropedRect.rect.height);
+                    DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.DragSprite, dropedRect.rect.height, elementView);
                     OnDragStart?.Invoke(dragInformation);
                     Debug.Log($"<color=cyan>Right Drop at Local Position: {localPoint}</color>");
                 }
-                        
             }
         }
         
