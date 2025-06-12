@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Scroller
 {
-    public class DragDropScrollView : FancyScrollView<ItemData>
+    public class DragDropScrollView : FancyScrollView<QuadItem>
     {
         [SerializeField] private FancyScrollView.Scroller _scroller;
         [SerializeField] private GameObject _cellPrefab;
@@ -22,12 +22,12 @@ namespace Scroller
             _scroller.enabled = false;
         }
 
-        public void UpdateData(IList<ItemData> items)
+        public void UpdateData(IList<QuadItem> items)
         {
             for (int i = 0; i < items.Count; i++)
             {
-                ItemData item = items[i];
-                item.AddAction(StopScrolling);
+                QuadItem quadItem = items[i];
+                quadItem.AddAction(StopScrolling);
             }
 
             UpdateContents(items);

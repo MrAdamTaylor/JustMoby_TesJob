@@ -1,3 +1,4 @@
+using Scroller;
 using UnityEngine;
 
 namespace DragAndDrop
@@ -6,18 +7,20 @@ namespace DragAndDrop
     {
         public Vector2 LocalPoint;
         public RectTransform DropArea;
-        public Sprite Sprite;
-        public float Height;
-        public IFlagSetter FlagSetter;
+        public readonly Sprite Sprite;
+        public readonly float Height;
+        public readonly IFlagSetter FlagSetter;
+        public readonly string ColorName;
 
 
-        public DragInformation(Vector2 localPoint, RectTransform dropArea, Sprite sprite, float height, IFlagSetter flagSetter)
+        public DragInformation(Vector2 localPoint, RectTransform dropArea, QuadItem quadItem, float height, IFlagSetter flagSetter)
         {
             FlagSetter = flagSetter;
             Height = height;
-            Sprite = sprite;
+            Sprite = quadItem.QuadData.CubeSprite;
             DropArea = dropArea;
             LocalPoint = localPoint;
+            ColorName = quadItem.QuadData.ColorName;
         }
     }
 }

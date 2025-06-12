@@ -1,5 +1,8 @@
 using Core;
 using DragAndDrop;
+using ObjectPool;
+using Scroller;
+using StaticData;
 using UnityEngine;
 
 namespace Factory
@@ -18,6 +21,19 @@ namespace Factory
                     new Vector2(dragInformation.LocalPoint.x, dragInformation.LocalPoint.y+dragInformation.Height);
             }
 
+            return ui;
+        }
+
+        public GameObject CreateTowerElement(string path, IDragDropManager dragDropManager, GameObject parent)
+        {
+            GameObject ui = Object.Instantiate(Resources.Load<GameObject>(path), parent.transform);
+            if (ui.TryGetComponent(out CustomButton customButton) && ui.TryGetComponent(out TowerQuadElement towerQuad))
+            {
+                var data = new QuadData();
+                var item = new QuadItem(data, dragDropManager);
+                customButton.OnPointerDownAction += ()=>dragDropManager.StartDrag(item, Input.mousePosition);
+                towerQuad.Init(item, customButton, dragDropManager);
+            }
             return ui;
         }
     }

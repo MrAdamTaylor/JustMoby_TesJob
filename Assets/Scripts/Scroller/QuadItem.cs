@@ -4,18 +4,17 @@ using StaticData;
 
 namespace Scroller
 {
-    public class ItemData
+    public class QuadItem
     {
-    
-        public CubeData CubeData;
+        public QuadData QuadData;
 
-        public IDragDropManager DragDropManager;
+        public readonly IDragDropManager DragDropManager;
 
         public Action AdditionalAction;
 
-        public ItemData(CubeData cubeData, IDragDropManager dragDropManager)
+        public QuadItem(QuadData quadData, IDragDropManager dragDropManager)
         {
-            CubeData = cubeData;
+            QuadData = quadData;
             DragDropManager = dragDropManager;
         }
 

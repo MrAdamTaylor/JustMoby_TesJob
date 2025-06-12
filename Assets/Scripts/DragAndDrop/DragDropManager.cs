@@ -8,7 +8,7 @@ namespace DragAndDrop
 {
     public class DragDropManager : IDragDropManager, ITickable
     {
-        private ItemData _currentItemData;
+        private QuadItem _currentQuadItem;
         private DragDropElementView _currentDragDropElementView;
         private FancyScrollView.Scroller _scroller;
     
@@ -38,10 +38,9 @@ namespace DragAndDrop
             _isDragging = false;
         }
 
-        public void StartDrag(ItemData itemData, Vector2 screenPosition)
+        public void StartDrag(QuadItem quadItem, Vector2 screenPosition)
         {
-            //_currentDragDropElementView.enabled = true;
-            _currentDragDropElementView.Initialize(itemData, screenPosition);
+            _currentDragDropElementView.Initialize(quadItem, screenPosition);
     
             _currentDragDropElementView.OnEndDragEvent += HandleEndDrag;
             _onDroppedHandler.Subscribe(_currentDragDropElementView);
@@ -77,7 +76,6 @@ namespace DragAndDrop
         
             if (_currentDragDropElementView == null) 
                 return;
-            //_currentDragDropElementView.enabled = false;
             _currentDragDropElementView.HideHandler();
             _currentDragDropElementView.OnEndDragEvent -= HandleEndDrag;
             _onDroppedHandler.Unsubscribe(_currentDragDropElementView);

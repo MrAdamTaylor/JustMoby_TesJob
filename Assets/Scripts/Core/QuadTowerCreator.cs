@@ -18,7 +18,7 @@ namespace Core
         [Inject] private UIFactory _uiFactory;
         [Inject] private OnDroppedHandler _onDropped;
     
-        private List<QuadTown> _quadTowns = new();
+        private readonly List<QuadTower> _quadTowers = new();
 
         public void Configure()
         {
@@ -32,21 +32,34 @@ namespace Core
 
         private void CreateQuadTown(DragInformation dragInformation)
         {
-            if (_towersConfig.CheckByCount(_quadTowns.Count))
+            if (_towersConfig.CheckByCount(_quadTowers.Count))
             {
                 Debug.Log($"Can Create!: ");
                 dragInformation.FlagSetter.SetFlag(true);
                 var element = _quadObjectPool.SpawnAtPosition(dragInformation);
-            
+                
+
                 GameObject slot = _uiFactory.CreateTowerSlot(PATH_TO_SLOT, dragInformation);
 
                 if (slot.TryGetComponent(out TowerUpSlot towerUpSlot))
                 {
                     _onDropped.Add(towerUpSlot);
                 }
-            
-                _quadTowns.Add(new QuadTown(slot,element, _quadObjectPool, dragInformation.DropArea));
+
+                var quadTower = new QuadTower(slot, element, _quadObjectPool, dragInformation.DropArea);
+                quadTower.OnQuadTowerZero += RemoveTower;
+                if (element.TryGetComponent(out TowerQuadElement towerQuad))
+                {
+                    towerQuad.Set(dragInformation.Sprite, dragInformation.ColorName, quadTower.MoveTower);
+                }
+                _quadTowers.Add(quadTower);
             }
+        }
+
+        private void RemoveTower(QuadTower quadTower)
+        {
+            quadTower.OnQuadTowerZero -= RemoveTower;
+            _quadTowers.Remove(quadTower);
         }
     }
 }

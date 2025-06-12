@@ -6,26 +6,26 @@ using UnityEngine.UI;
 
 namespace Scroller
 {
-    public class QuadCell : FancyCell<ItemData>, IPointerDownHandler
+    public class QuadCell : FancyCell<QuadItem>, IPointerDownHandler
     {
         [SerializeField] private Image _image;
         [SerializeField] private Animator _animator;
         [SerializeField] private CustomButton _button;
     
-        private ItemData _itemData;
+        private QuadItem _quadItem;
     
         static class AnimatorHash
         {
             public static readonly int Scroll = Animator.StringToHash("scroll");
         }
     
-        public override void UpdateContent(ItemData itemData)
+        public override void UpdateContent(QuadItem quadItem)
         {
-            _itemData = itemData;
-            _image.sprite = itemData.CubeData.CubeSprite;
+            _quadItem = quadItem;
+            _image.sprite = quadItem.QuadData.CubeSprite;
 
-            _button.OnPointerAction += ()=> _itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition);
-            _button.OnPointerAction += _itemData.AdditionalAction;
+            _button.OnPointerDownAction += ()=> _quadItem.DragDropManager.StartDrag(_quadItem, Input.mousePosition);
+            _button.OnPointerDownAction += _quadItem.AdditionalAction;
         }
 
         public override void UpdatePosition(float position)
@@ -51,8 +51,8 @@ namespace Scroller
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            _itemData.DragDropManager.StartDrag(_itemData, Input.mousePosition);
-            _itemData.AdditionalAction?.Invoke();
+            _quadItem.DragDropManager.StartDrag(_quadItem, Input.mousePosition);
+            _quadItem.AdditionalAction?.Invoke();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace DragAndDrop
 {
     public interface IDragDropManager
     {
-        public void StartDrag(ItemData itemData, Vector2 screenPosition);
+        public void StartDrag(QuadItem quadItem, Vector2 screenPosition);
     }
 }

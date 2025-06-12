@@ -22,16 +22,22 @@ namespace DragAndDrop
 
         public Sprite DragSprite { get; private set; }
 
+        public QuadItem QuadItem { get; private set; }
+        
         private Sequence _sequenceChangeSize, _sequenceFadeImage;
-    
+
         private Vector2 _offset;
 
         private bool _isOff;
 
-        public void Initialize(ItemData itemData, Vector2 screenPosition)
+        public void Initialize(QuadItem quadItem, Vector2 screenPosition)
         {
-            _image.sprite = itemData.CubeData.CubeSprite;
-            DragSprite = itemData.CubeData.CubeSprite;
+            QuadItem = quadItem;
+            if (quadItem.QuadData.CubeSprite != null)
+            {
+                _image.sprite = quadItem.QuadData.CubeSprite;
+                DragSprite = quadItem.QuadData.CubeSprite;
+            }
             _rectTransform.position = screenPosition;
         }
 

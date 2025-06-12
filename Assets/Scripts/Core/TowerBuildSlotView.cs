@@ -28,7 +28,7 @@ namespace Core
             {
                 if (_dropArea.CheckByEdgesFromPosition(localPoint, dropedRect.rect.width, dropedRect.rect.height))
                 {
-                    DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.DragSprite, dropedRect.rect.height, elementView);
+                    DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.QuadItem, dropedRect.rect.height, elementView);
                     OnDragStart?.Invoke(dragInformation);
                     Debug.Log($"<color=cyan>Right Drop at Local Position: {localPoint}</color>");
                 }

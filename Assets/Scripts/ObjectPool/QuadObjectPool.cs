@@ -8,13 +8,14 @@ namespace ObjectPool
     public class QuadObjectPool 
     {
         private GameObjectPool _pool;
+        private GameObject _parentObject;
 
-        public void Construct(int totalCount, Func<GameObject> factory)
+        public QuadObjectPool(int totalCount, Func<GameObject> factory, GameObject parentObject)
         {
+            _parentObject = parentObject;
             _pool = new GameObjectPool(factory, totalCount);
         }
-    
-    
+
         public GameObject SpawnAtPosition(DragInformation information)
         {
             GameObject quad = _pool.Get();
@@ -30,6 +31,7 @@ namespace ObjectPool
     
         public void Return(GameObject quad)
         {
+            quad.transform.SetParent(_parentObject.transform);
             quad.SetActive(false);
             _pool.Return(quad);
         }

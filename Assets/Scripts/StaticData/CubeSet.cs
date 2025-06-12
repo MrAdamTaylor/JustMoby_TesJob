@@ -7,11 +7,11 @@ namespace StaticData
     [CreateAssetMenu(fileName = "NewCubeSet", menuName = "CubeSet")]
     public class CubeSet : ScriptableObject
     {
-        public List<CubeData> CubeSets;
+        public List<QuadData> CubeSets;
     }
 
     [Serializable]
-    public struct CubeData
+    public struct QuadData
     {
         public string ColorName;
         public Sprite CubeSprite;

@@ -8,11 +8,11 @@ namespace Core
     {
         public RectTransform DropArea => _dropArea;
     
-        private QuadTown _quadTown;
+        private QuadTower _quadTower;
 
-        public void SetTown(QuadTown quadTown)
+        public void SetTown(QuadTower quadTower)
         {
-            _quadTown = quadTown;
+            _quadTower = quadTower;
         }
 
         public override void OnDropped(PointerEventData eventData)
@@ -33,15 +33,10 @@ namespace Core
                 eventData.pointerDrag.TryGetComponent(out DragDropElementView elementView))
             {
                 
-                DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.DragSprite, dropedRect.rect.height, elementView);
-                SetToTown(dragInformation);
-                Debug.Log($"<color=magenta>Right Drop at Local Position: {localPoint}</color>");
+                var dragInformation = new DragInformation(localPoint, _dropArea, elementView.QuadItem, dropedRect.rect.height, elementView);
+                _quadTower.AddToTown(dragInformation);
+                //Debug.Log($"<color=magenta>Right Drop at Local Position: {localPoint}</color>");
             }
-        }
-
-        private void SetToTown(DragInformation dragInformation)
-        {
-            _quadTown.AddToTown(dragInformation);
         }
     }
 }

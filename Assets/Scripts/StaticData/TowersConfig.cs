@@ -6,8 +6,10 @@ namespace StaticData
     public class TowersConfig : ScriptableObject
     {
         [Range(1,3)] 
-        [SerializeField] private int MaxTowers = 1;
+        [SerializeField] private int _maxTowers = 1;
 
-        public bool CheckByCount(int count) => count < MaxTowers;
+        public int MaxTowers => _maxTowers;
+        
+        public bool CheckByCount(int count) => count < _maxTowers;
     }
 }

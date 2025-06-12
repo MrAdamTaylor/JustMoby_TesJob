@@ -6,10 +6,17 @@ namespace Scroller
 {
     public class CustomButton : Button
     {
-        public event Action OnPointerAction;
+        public event Action OnPointerDownAction;
+        public event Action OnPointerUpAction;
+
         public override void OnPointerDown(PointerEventData eventData)
         {
-            OnPointerAction?.Invoke();
+            OnPointerDownAction?.Invoke();
+        }
+
+        public override void OnPointerUp(PointerEventData eventData)
+        {
+            OnPointerUpAction?.Invoke();
         }
     }
 }
