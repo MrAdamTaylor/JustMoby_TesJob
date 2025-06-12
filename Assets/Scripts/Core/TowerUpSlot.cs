@@ -35,7 +35,6 @@ namespace Core
                 
                 var dragInformation = new DragInformation(localPoint, _dropArea, elementView.QuadItem, dropedRect.rect.height, elementView);
                 _quadTower.AddToTown(dragInformation);
-                //Debug.Log($"<color=magenta>Right Drop at Local Position: {localPoint}</color>");
             }
         }
     }

@@ -4,6 +4,7 @@ using Factory;
 using Infrastructure.DI.Injector;
 using ObjectPool;
 using StaticData;
+using UniRx;
 using UnityEngine;
 
 namespace Core
@@ -19,6 +20,7 @@ namespace Core
         [Inject] private OnDroppedHandler _onDropped;
     
         private readonly List<QuadTower> _quadTowers = new();
+        private CompositeDisposable _compositeDisposable = new();
 
         public void Configure()
         {
@@ -28,6 +30,7 @@ namespace Core
         ~QuadTowerCreator()
         {
             _view.OnDragStart -= CreateQuadTown;
+            _compositeDisposable.Clear();
         }
 
         private void CreateQuadTown(DragInformation dragInformation)
@@ -47,7 +50,7 @@ namespace Core
                 }
 
                 var quadTower = new QuadTower(slot, element, _quadObjectPool, dragInformation.DropArea);
-                quadTower.OnQuadTowerZero += RemoveTower;
+                quadTower.OnQuadTowerZero.First().Subscribe(p => RemoveTower(p)).AddTo(_compositeDisposable);
                 if (element.TryGetComponent(out TowerQuadElement towerQuad))
                 {
                     towerQuad.Set(dragInformation.Sprite, dragInformation.ColorName, quadTower.MoveTower);
@@ -58,8 +61,8 @@ namespace Core
 
         private void RemoveTower(QuadTower quadTower)
         {
-            quadTower.OnQuadTowerZero -= RemoveTower;
             _quadTowers.Remove(quadTower);
         }
+        
     }
 }

@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using DragAndDrop;
 using ObjectPool;
+using UniRx;
 using UnityEngine;
 
 namespace Core
@@ -10,7 +10,8 @@ namespace Core
     public class QuadTower
     {
         private const float ANIMATION_TIME = 0.5f;
-        public event Action<QuadTower> OnQuadTowerZero;
+
+        public ReactiveCommand<QuadTower> OnQuadTowerZero = new();
         
         private LinkedList<GameObject> _town = new();
         private GameObject _slot;
@@ -92,7 +93,6 @@ namespace Core
                 GameObject nextElement = queue.Dequeue();
                 if (nextElement.TryGetComponent(out RectTransform rectTransform))
                 {
-                    //(rectTransform.anchoredPosition, previousPoint) = (previousPoint, rectTransform.anchoredPosition);
                     rectTransform.DOKill();
                     moveSequence.Insert(0, rectTransform.DOAnchorPos(previousPoint, ANIMATION_TIME));
                     previousPoint = rectTransform.anchoredPosition;
@@ -101,7 +101,7 @@ namespace Core
 
             if (_town.Count == 0)
             {
-                OnQuadTowerZero?.Invoke(this);
+                OnQuadTowerZero?.Execute(this);
             }
         }
     }
