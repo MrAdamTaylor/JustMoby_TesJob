@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using Core.Slot;
 using DG.Tweening;
 using DragAndDrop;
+using Localization;
 using ObjectPool;
 using UniRx;
 using UnityEngine;
 
-namespace Core
+namespace Core.Tower
 {
     public class QuadTower
     {

@@ -1,8 +1,11 @@
 using Core;
+using Core.Slot;
+using Core.Tower;
+using DragAndDrop;
 using Scroller;
 using UnityEngine;
 
-namespace DragAndDrop
+namespace Common
 {
     public class GameContentProvider : MonoBehaviour
     {

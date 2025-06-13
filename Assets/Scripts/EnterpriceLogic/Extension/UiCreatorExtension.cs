@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Extension
+namespace EnterpriceLogic.Extension
 {
     public static class UiCreatorExtension 
     {

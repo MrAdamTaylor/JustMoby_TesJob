@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extension
+namespace EnterpriceLogic.Extension
 {
     public static class RectTransformExtension 
     {

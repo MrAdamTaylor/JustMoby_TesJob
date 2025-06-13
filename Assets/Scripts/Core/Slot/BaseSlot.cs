@@ -2,7 +2,7 @@ using DragAndDrop;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Core
+namespace Core.Slot
 {
     public abstract class BaseSlot : MonoBehaviour, IOnDropped
     {

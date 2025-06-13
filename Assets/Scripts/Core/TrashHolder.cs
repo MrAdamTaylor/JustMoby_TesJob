@@ -1,4 +1,6 @@
+using Core.Slot;
 using DragAndDrop;
+using Localization;
 using UnityEditor.VersionControl;
 
 namespace Core

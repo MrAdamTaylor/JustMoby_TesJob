@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace DragAndDrop
+namespace EnterpriceLogic
 {
     public class SelfDestroyer : MonoBehaviour
     {

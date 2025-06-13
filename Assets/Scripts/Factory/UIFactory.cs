@@ -1,4 +1,6 @@
 using Core;
+using Core.Slot;
+using Core.Tower;
 using DragAndDrop;
 using ObjectPool;
 using Scroller;

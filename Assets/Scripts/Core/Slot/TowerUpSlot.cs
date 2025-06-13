@@ -1,8 +1,9 @@
+using Core.Tower;
 using DragAndDrop;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Core
+namespace Core.Slot
 {
     public class TowerUpSlot : BaseSlot
     {

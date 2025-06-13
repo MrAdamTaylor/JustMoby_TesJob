@@ -1,9 +1,10 @@
 using System;
+using DragAndDrop;
 using Scroller;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace DragAndDrop
+namespace Core.Tower
 {
     public class TowerQuadElement : MonoBehaviour
     {

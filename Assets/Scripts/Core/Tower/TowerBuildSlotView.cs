@@ -1,10 +1,11 @@
 using System;
+using Core.Slot;
 using DragAndDrop;
-using Extension;
+using EnterpriceLogic.Extension;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Core
+namespace Core.Tower
 {
     public class TowerBuildSlotView : BaseSlot
     {

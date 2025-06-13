@@ -1,6 +1,9 @@
+using Common;
 using Core;
 using DG.Tweening;
-using Extension;
+using EnterpriceLogic;
+using EnterpriceLogic.Extension;
+using Localization;
 using Scroller;
 using UniRx;
 using UnityEngine;

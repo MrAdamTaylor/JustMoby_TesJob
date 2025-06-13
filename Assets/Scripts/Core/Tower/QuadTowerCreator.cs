@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using Core.Slot;
 using DragAndDrop;
 using Factory;
 using Infrastructure.DI.Injector;
+using Localization;
 using ObjectPool;
 using StaticData;
 using UniRx;
 using UnityEngine;
 
-namespace Core
+namespace Core.Tower
 {
     public class QuadTowerCreator
     {

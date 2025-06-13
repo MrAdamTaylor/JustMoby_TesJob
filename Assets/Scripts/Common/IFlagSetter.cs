@@ -1,4 +1,4 @@
-namespace DragAndDrop
+namespace Common
 {
     public interface IFlagSetter
     {
