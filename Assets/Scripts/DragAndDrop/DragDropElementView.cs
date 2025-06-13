@@ -14,6 +14,7 @@ namespace DragAndDrop
         [SerializeField] private Image _image;
         [SerializeField] private RectTransform _rectTransform;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private MessageOutput _messageOutput;
 
         [Header("Animation")] [Space]
         [SerializeField] private Vector3 _scaleSize;
@@ -89,6 +90,14 @@ namespace DragAndDrop
                     }
                     else
                     {
+                        if(_messageOutput.KeyIsNot(MessagesKey.TO_HEIGHT))
+                            _messageOutput.OutputByKey(MessagesKey.DROP_IN_EMPTY);
+                        else
+                        {
+                            _messageOutput.OutputByKey(MessagesKey.TO_HEIGHT);  
+                            _messageOutput.SetDefaultKey();
+                        }
+                        
                         CallAnimation();
                         FadeSpite();
                     }

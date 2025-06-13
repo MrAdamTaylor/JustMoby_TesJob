@@ -18,9 +18,11 @@ namespace Core
         private RectTransform _slotRectTransform;
         private RectTransform _mainArea;
         private QuadObjectPool _quadObjectPool;
+        private MessageOutput _messageOutput;
 
-        public QuadTower(GameObject slot, GameObject gameObject, QuadObjectPool quadObjectPool, RectTransform mainArea)
+        public QuadTower(GameObject slot, GameObject gameObject, QuadObjectPool quadObjectPool, RectTransform mainArea, MessageOutput messageOutput)
         {
+            _messageOutput = messageOutput;
             _mainArea = mainArea;
             _town.AddLast(gameObject);
             _slot = slot;
@@ -32,9 +34,12 @@ namespace Core
 
         public void AddToTown(DragInformation dragInformation)
         {
-            if(_mainArea.rect.yMax - dragInformation.Height*0.5f < _slotRectTransform.anchoredPosition.y)
+            if (_mainArea.rect.yMax - dragInformation.Height * 0.5f < _slotRectTransform.anchoredPosition.y)
+            {
+                _messageOutput.OutputByKey(MessagesKey.TO_HEIGHT);
                 return;
-        
+            }
+            _messageOutput.OutputByKey(MessagesKey.ADD_TO_LADER);
             dragInformation.FlagSetter.SetFlag(true);
             Vector2 positionLastTown = _town.Last.Value.GetComponent<RectTransform>().anchoredPosition;
             DragInformation dragInformation2 = dragInformation;
@@ -53,8 +58,7 @@ namespace Core
 
         public void MoveTower(GameObject element)
         {
-            Debug.Log($"<color=yellow>Tower is Moved:</color>");
-            
+            _messageOutput.OutputByKey(MessagesKey.FROM_LADER);
             var queue = new Queue<GameObject>();
             var currentNode = _town.Find(element);
 
@@ -74,7 +78,6 @@ namespace Core
                     if (nextNode.Value.TryGetComponent(out TowerQuadElement towerQuadElement))
                     {
                         queue.Enqueue(nextNode.Value);
-                        Debug.Log($"<color=green>Next Tower:</color> {towerQuadElement.QuadItem.QuadData.ColorName}");
                     }
                     nextNode = nextNode.Next;
                 }

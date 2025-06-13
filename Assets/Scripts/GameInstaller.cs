@@ -9,7 +9,7 @@ using Scroller;
 using StaticData;
 using UnityEngine;
 
-public class GameLauncher : MonoBehaviour
+public class GameInstaller : MonoBehaviour
 {
     private const string PATH_TO_MAIN_UI = "Prefabs/GameContentUI";
 
@@ -21,13 +21,18 @@ public class GameLauncher : MonoBehaviour
     {
         var cubeSet = LoadAllConfigs(out var mainConfig, out var towersConfig, out var mainUI);
 
+        var localizationManager = new LocalizationManager();
+        localizationManager.LoadLocalization();
+        
         CreateContainer();
 
         var gameContentProvider = CreateUiAndGetProvider(mainUI);
 
+        localizationManager.AddILocalizable(gameContentProvider.Message);
+        
         var dragDropScrollView = CreateAndBindServices(gameContentProvider, out var dragDropManager, towersConfig);
         FullDataForScrollView(cubeSet, dragDropManager, dragDropScrollView);
-        var trashHolder = new TrashHolder(gameContentProvider.TrashSlot, gameContentProvider.MovingElement);
+        var trashHolder = new TrashHolder(gameContentProvider.TrashSlot, gameContentProvider.MovingElement, gameContentProvider.Message);
         var objectsCreator = new ObjectsCreator();
         _container.Construct(objectsCreator);
         objectsCreator.Init(_canvas, mainConfig, towersConfig, _container);
@@ -71,6 +76,7 @@ public class GameLauncher : MonoBehaviour
         _container.BindData(typeof(UIFactory), typeof(UIFactory), LifeTime.Singleton);
         
         _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();
+        _container.Bind<MessageOutput>().AsMono(gameContentProvider.Message).Registration();
         
         var dragDropScrollView = gameContentProvider.DragDropScrollView;
         var onDroppedHandler = new OnDroppedHandler();

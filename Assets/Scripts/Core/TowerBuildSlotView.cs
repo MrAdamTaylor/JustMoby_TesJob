@@ -30,7 +30,6 @@ namespace Core
                 {
                     DragInformation dragInformation = new DragInformation(localPoint, _dropArea, elementView.QuadItem, dropedRect.rect.height, elementView);
                     OnDragStart?.Invoke(dragInformation);
-                    Debug.Log($"<color=cyan>Right Drop at Local Position: {localPoint}</color>");
                 }
             }
         }

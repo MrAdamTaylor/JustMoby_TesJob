@@ -12,5 +12,6 @@ namespace DragAndDrop
         public TowerBuildSlotView TowerBuildSlotView;
         public TrashSlot TrashSlot;
         public MovingElement MovingElement;
+        public MessageOutput Message;
     }
 }

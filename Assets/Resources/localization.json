@@ -1,0 +1,16 @@
+{
+    "en": {
+        "Empty": "Drop in empty space",
+        "Lader": "Add to ladder",
+        "Trash": "Throw to trash",
+        "FromLader": "Take from ladder",
+        "Height": "Limited height"
+    },
+    "ru": {
+        "Empty": "Выкинут в пустое место",
+        "Lader": "Добавлен на лестницу",
+        "Trash": "Выброшен в корзину",
+        "FromLader": "Взят объект с лестницы",
+        "Height": "Превышен лимит высоты"
+    }
+}

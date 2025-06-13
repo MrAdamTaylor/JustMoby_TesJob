@@ -13,14 +13,27 @@ namespace Core
     {
         private const string PATH_TO_SLOT = "Prefabs/TowerSlot";
     
-        [Inject] private TowerBuildSlotView _view;
-        [Inject] private TowersConfig _towersConfig;
-        [Inject] private QuadObjectPool _quadObjectPool; 
-        [Inject] private UIFactory _uiFactory;
-        [Inject] private OnDroppedHandler _onDropped;
+        private TowerBuildSlotView _view;
+        private TowersConfig _towersConfig;
+        private QuadObjectPool _quadObjectPool; 
+        private UIFactory _uiFactory;
+        private OnDroppedHandler _onDropped;
+        private MessageOutput _messageOutput;
     
         private readonly List<QuadTower> _quadTowers = new();
-        private CompositeDisposable _compositeDisposable = new();
+        private readonly CompositeDisposable _compositeDisposable = new();
+
+        [Inject]
+        public void Construct(TowerBuildSlotView view, QuadObjectPool quadObjectPool, TowersConfig config, 
+            UIFactory uiFactory, OnDroppedHandler onDropped, MessageOutput messageOutput)
+        {
+            _view = view; 
+            _quadObjectPool = quadObjectPool;
+            _uiFactory = uiFactory;
+            _onDropped = onDropped;
+            _messageOutput = messageOutput;
+            _towersConfig = config;
+        }
 
         public void Configure()
         {
@@ -37,10 +50,8 @@ namespace Core
         {
             if (_towersConfig.CheckByCount(_quadTowers.Count))
             {
-                Debug.Log($"Can Create!: ");
                 dragInformation.FlagSetter.SetFlag(true);
                 var element = _quadObjectPool.SpawnAtPosition(dragInformation);
-                
 
                 GameObject slot = _uiFactory.CreateTowerSlot(PATH_TO_SLOT, dragInformation);
 
@@ -49,13 +60,14 @@ namespace Core
                     _onDropped.Add(towerUpSlot);
                 }
 
-                var quadTower = new QuadTower(slot, element, _quadObjectPool, dragInformation.DropArea);
+                var quadTower = new QuadTower(slot, element, _quadObjectPool, dragInformation.DropArea, _messageOutput);
                 quadTower.OnQuadTowerZero.First().Subscribe(p => RemoveTower(p)).AddTo(_compositeDisposable);
                 if (element.TryGetComponent(out TowerQuadElement towerQuad))
                 {
                     towerQuad.Set(dragInformation.Sprite, dragInformation.ColorName, quadTower.MoveTower);
                 }
                 _quadTowers.Add(quadTower);
+                _messageOutput.OutputByKey(MessagesKey.ADD_TO_LADER);
             }
         }
 

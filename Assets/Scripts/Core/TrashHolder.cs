@@ -1,4 +1,5 @@
 using DragAndDrop;
+using UnityEditor.VersionControl;
 
 namespace Core
 {
@@ -6,9 +7,11 @@ namespace Core
     {
         private TrashSlot _trashSlot;
         private MovingElement _movingElement;
+        private MessageOutput _message;
 
-        public TrashHolder(TrashSlot trashSlot, MovingElement movingElement)
+        public TrashHolder(TrashSlot trashSlot, MovingElement movingElement, MessageOutput message)
         {
+            _message = message;
             _trashSlot = trashSlot;
             _trashSlot.OnDragStart += Execute;
             _movingElement = movingElement;
@@ -18,6 +21,7 @@ namespace Core
         {
             obj.FlagSetter.SetFlag(true);
             _movingElement.Setup(obj.Sprite);
+            _message.OutputByKey(MessagesKey.TROW_TO_TRASH);
         }
 
         ~TrashHolder()
