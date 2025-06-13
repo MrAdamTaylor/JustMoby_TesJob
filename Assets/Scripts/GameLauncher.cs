@@ -27,7 +27,7 @@ public class GameLauncher : MonoBehaviour
 
         var dragDropScrollView = CreateAndBindServices(gameContentProvider, out var dragDropManager, towersConfig);
         FullDataForScrollView(cubeSet, dragDropManager, dragDropScrollView);
-
+        var trashHolder = new TrashHolder(gameContentProvider.TrashSlot, gameContentProvider.MovingElement);
         var objectsCreator = new ObjectsCreator();
         _container.Construct(objectsCreator);
         objectsCreator.Init(_canvas, mainConfig, towersConfig, _container);
@@ -75,6 +75,7 @@ public class GameLauncher : MonoBehaviour
         var dragDropScrollView = gameContentProvider.DragDropScrollView;
         var onDroppedHandler = new OnDroppedHandler();
         onDroppedHandler.Add(gameContentProvider.TowerBuildSlotView);
+        onDroppedHandler.Add(gameContentProvider.TrashSlot);
         _container.Bind<OnDroppedHandler>().AsCached(onDroppedHandler).Registration();
 
         var inputHandler = new InputHandler();

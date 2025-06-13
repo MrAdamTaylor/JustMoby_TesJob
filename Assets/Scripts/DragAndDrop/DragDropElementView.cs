@@ -84,13 +84,11 @@ namespace DragAndDrop
                 {
                     if (_isOff)
                     {
-                        Debug.Log("<color=red>Hide Without Animation</color>");
                         FadeSpite();
                         _isOff = false;
                     }
                     else
                     {
-                        Debug.Log("<color=yellow>PlayAnimation</color>");
                         CallAnimation();
                         FadeSpite();
                     }

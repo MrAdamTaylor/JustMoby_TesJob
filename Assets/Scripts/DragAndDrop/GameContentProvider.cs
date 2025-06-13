@@ -10,5 +10,7 @@ namespace DragAndDrop
         public DragDropScrollView DragDropScrollView;
         public DragDropElementView DragDropElementView;
         public TowerBuildSlotView TowerBuildSlotView;
+        public TrashSlot TrashSlot;
+        public MovingElement MovingElement;
     }
 }

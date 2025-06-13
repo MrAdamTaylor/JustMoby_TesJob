@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df59af39d8b6e5d498ae4bf69c507f15, type: 3}
   m_Name: TowersConfig
   m_EditorClassIdentifier: 
-  MaxTowers: 1
+  _maxTowers: 1
