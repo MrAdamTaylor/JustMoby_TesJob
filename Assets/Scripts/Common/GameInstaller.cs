@@ -36,8 +36,8 @@ namespace Common
 
             localizationManager.AddILocalizable(gameContentProvider.Message);
         
-            Stopwatch timeAllContainer = new Stopwatch();
-            timeAllContainer.Start();
+            //Stopwatch timeAllContainer = new Stopwatch();
+            //timeAllContainer.Start();
             var dragDropScrollView = CreateAndBindServices(gameContentProvider, out var dragDropManager, towersConfig);
             FullDataForScrollView(cubeSet, dragDropManager, dragDropScrollView);
             var trashHolder = new TrashHolder(gameContentProvider.TrashSlot, gameContentProvider.MovingElement, gameContentProvider.Message);
@@ -46,8 +46,8 @@ namespace Common
             //Stopwatch injectTime = new Stopwatch();
             //injectTime.Start();
             _container.Construct(objectsCreator);
-            timeAllContainer.Stop();
-            Debug.Log($"Время регистрации и инджекта всех зависимостей {timeAllContainer.ElapsedMilliseconds}");
+            //timeAllContainer.Stop();
+            //Debug.Log($"Время регистрации и инджекта всех зависимостей {timeAllContainer.ElapsedMilliseconds}");
             //injectTime.Stop();
             //Debug.Log($"Время инджекта одной зависимости {injectTime.ElapsedMilliseconds}");
             objectsCreator.Init(_canvas, mainConfig, towersConfig, _container);
@@ -79,8 +79,12 @@ namespace Common
 
         private void CreateContainer()
         {
+            Stopwatch createDI = new Stopwatch();
+            createDI.Start();
             _container = new Container();
             _container.CreateScope();
+            createDI.Stop();
+            Debug.Log($"Время создания моего DI {createDI.ElapsedMilliseconds} ms");
         }
 
         private DragDropScrollView CreateAndBindServices(GameContentProvider gameContentProvider,
@@ -91,7 +95,12 @@ namespace Common
             _container.Bind<TowersConfig>().AsScriptable(towersConfig).Registration();
             //bindTime.Stop();
             //Debug.Log($"Время регистрации одной зависимости {bindTime.ElapsedMilliseconds}");
+            
+            Stopwatch createTime = new Stopwatch();
+            createTime.Start();
             _container.BindData(typeof(UIFactory), typeof(UIFactory), LifeTime.Singleton);
+            createTime.Stop();
+            Debug.Log($"Время регистрации одной зависимости {createTime.ElapsedMilliseconds} ms");
         
             _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();
             _container.Bind<MessageOutput>().AsMono(gameContentProvider.Message).Registration();
@@ -100,14 +109,18 @@ namespace Common
             var onDroppedHandler = new OnDroppedHandler();
             onDroppedHandler.Add(gameContentProvider.TowerBuildSlotView);
             onDroppedHandler.Add(gameContentProvider.TrashSlot);
-            _container.Bind<OnDroppedHandler>().AsCached(onDroppedHandler).Registration();
 
+            Stopwatch createManager = new Stopwatch();
+            createManager.Start();
             var inputHandler = new InputHandler();
-            _container.Bind<InputHandler>().AsCached(inputHandler).AsUpdate<ITickable>().Registration();
-        
             dragDropManager = new DragDropManager(gameContentProvider.Scroller, 
                 gameContentProvider.DragDropElementView, onDroppedHandler, inputHandler);
+            
+            _container.Bind<OnDroppedHandler>().AsCached(onDroppedHandler).Registration();
+            _container.Bind<InputHandler>().AsCached(inputHandler).AsUpdate<ITickable>().Registration();
             _container.Bind<IDragDropManager>().AsCached(dragDropManager).AsUpdate<ITickable>().Registration();
+            createManager.Stop();
+            Debug.Log($"Время создания сервиса и регистраций {createTime.ElapsedMilliseconds} ms");
             return dragDropScrollView;
         }
 
