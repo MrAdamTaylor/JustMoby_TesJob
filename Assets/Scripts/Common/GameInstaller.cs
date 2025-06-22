@@ -91,6 +91,7 @@ namespace Common
             _container.Bind<TowersConfig>().AsScriptable(towersConfig).Registration();
             //bindTime.Stop();
             //Debug.Log($"Время регистрации одной зависимости {bindTime.ElapsedMilliseconds}");
+            
             _container.BindData(typeof(UIFactory), typeof(UIFactory), LifeTime.Singleton);
         
             _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();

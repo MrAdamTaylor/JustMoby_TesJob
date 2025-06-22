@@ -1,6 +1,7 @@
 using System;
 using Infrastructure.DI.Tickable;
 using UnityEngine;
+using ITickable = Zenject.ITickable;
 
 namespace Common
 {

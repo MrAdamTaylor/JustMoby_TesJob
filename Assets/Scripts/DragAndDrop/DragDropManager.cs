@@ -4,6 +4,7 @@ using Infrastructure.DI.Tickable;
 using Scroller;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using ITickable = Zenject.ITickable;
 
 namespace DragAndDrop
 {
