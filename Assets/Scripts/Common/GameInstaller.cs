@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using Core;
 using Core.Tower;
@@ -10,6 +11,7 @@ using Localization;
 using Scroller;
 using StaticData;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Common
 {
@@ -34,11 +36,20 @@ namespace Common
 
             localizationManager.AddILocalizable(gameContentProvider.Message);
         
+            Stopwatch timeAllContainer = new Stopwatch();
+            timeAllContainer.Start();
             var dragDropScrollView = CreateAndBindServices(gameContentProvider, out var dragDropManager, towersConfig);
             FullDataForScrollView(cubeSet, dragDropManager, dragDropScrollView);
             var trashHolder = new TrashHolder(gameContentProvider.TrashSlot, gameContentProvider.MovingElement, gameContentProvider.Message);
             var objectsCreator = new ObjectsCreator();
+            
+            //Stopwatch injectTime = new Stopwatch();
+            //injectTime.Start();
             _container.Construct(objectsCreator);
+            timeAllContainer.Stop();
+            Debug.Log($"Время регистрации и инджекта всех зависимостей {timeAllContainer.ElapsedMilliseconds}");
+            //injectTime.Stop();
+            //Debug.Log($"Время инджекта одной зависимости {injectTime.ElapsedMilliseconds}");
             objectsCreator.Init(_canvas, mainConfig, towersConfig, _container);
         
             _container.InitializeITickable();
@@ -75,8 +86,11 @@ namespace Common
         private DragDropScrollView CreateAndBindServices(GameContentProvider gameContentProvider,
             out DragDropManager dragDropManager, TowersConfig towersConfig)
         {
+            //Stopwatch bindTime = new Stopwatch();
+            //bindTime.Start();
             _container.Bind<TowersConfig>().AsScriptable(towersConfig).Registration();
-        
+            //bindTime.Stop();
+            //Debug.Log($"Время регистрации одной зависимости {bindTime.ElapsedMilliseconds}");
             _container.BindData(typeof(UIFactory), typeof(UIFactory), LifeTime.Singleton);
         
             _container.Bind<TowerBuildSlotView>().AsMono(gameContentProvider.TowerBuildSlotView).Registration();
