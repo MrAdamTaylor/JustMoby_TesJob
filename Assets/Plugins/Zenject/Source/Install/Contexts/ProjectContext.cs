@@ -2,10 +2,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using ModestTree;
 using UnityEngine;
 using Zenject.Internal;
+using Debug = UnityEngine.Debug;
 
 namespace Zenject
 {
@@ -53,8 +55,12 @@ namespace Zenject
             {
                 if (_instance == null)
                 {
+                    Stopwatch projectContextCreate = new Stopwatch();
+                    projectContextCreate.Start();
                     InstantiateAndInitialize();
                     Assert.IsNotNull(_instance);
+                    projectContextCreate.Stop();
+                    Debug.Log($"Project Context created in {projectContextCreate.ElapsedMilliseconds}ms");
                 }
 
                 return _instance;

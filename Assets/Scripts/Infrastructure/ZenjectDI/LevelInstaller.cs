@@ -43,6 +43,6 @@ public class LevelInstaller : MonoInstaller
             .NonLazy();
         
         bindTime.Stop();
-        Debug.Log($"Bind Time in Zenject {bindTime.ElapsedMilliseconds} ms.");
+        //Debug.Log($"Bind Time in Zenject {bindTime.ElapsedMilliseconds} ms.");
     }
 }
